@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/claytonCharles/albionatlas-api/database"
+	"github.com/claytonCharles/albionatlas-api/internal/auth"
 	"github.com/joho/godotenv"
 )
 
@@ -15,8 +16,12 @@ func main() {
 	}
 
 	database := database.NewConnection()
+	defer database.DB.Close()
 
-	fmt.Println(database)
+	database.InitializeRepositories()
+	authHandler := auth.NewHandler(database.AuthRepo)
+
+	http.HandleFunc("POST /register", authHandler.Register)
 
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("pong"))

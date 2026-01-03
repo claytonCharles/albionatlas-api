@@ -6,11 +6,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/claytonCharles/albionatlas-api/internal/auth"
 	_ "github.com/lib/pq"
 )
 
 type ContainerDB struct {
-	DB *sql.DB
+	DB       *sql.DB
+	AuthRepo auth.AuthRepository
 }
 
 func NewConnection() *ContainerDB {
@@ -27,13 +29,11 @@ func NewConnection() *ContainerDB {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		log.Fatal("Não foi possivel conectar ao banco: ", err)
-	}
 
 	fmt.Println("Database conectada com sucesso!")
 	return &ContainerDB{DB: db}
+}
+
+func (cdb *ContainerDB) InitializeRepositories() {
+	cdb.AuthRepo = auth.NewRepository(cdb.DB)
 }
