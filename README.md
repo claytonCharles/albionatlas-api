@@ -3,7 +3,7 @@ Pequeno projeto para estudos em GO
 
 # Objetivo - Estudo
 A ideia do projeto é aprender o core do GO, para entender o que temos de ferramentas nativas para resolver problemas.  
-A princípio, não usarei libs externas exatamente para aprender sobre a linguagem antes de facilitá-la.
+A princípio, utilizarei apenas libs essenciais externas, para aprender sobre a linguagem antes de facilitá-la.
 
 # Objetivo - Projeto
 A ideia é criar uma API de autenticação com JWT e um armazenamento/tratamento de informações do Leilão do Albion Online.
